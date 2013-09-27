@@ -52,8 +52,6 @@
 
 			var camera, scane, renderer;
 
-			var cameraControls;
-
 			var verticalMirror, groundMirror;
 			var sphereGroup, smallSphere;
 
@@ -73,11 +71,7 @@
 				camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 				camera.position.set( 0, 75, 160 );
 
-				cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
-				cameraControls.target.set( 0, 40, 0);
-				cameraControls.maxDistance = 400;
-				cameraControls.minDistance = 10;
-				cameraControls.update();
+				camera.lookAt( 0, 40, 0);
 
 				var container = document.getElementById( 'container' );
 				container.appendChild( renderer.domElement );
@@ -201,7 +195,6 @@
 				smallSphere.rotation.y = ( Math.PI / 2 ) - timer * 0.1;
 				smallSphere.rotation.z = timer * 0.8;
 
-				cameraControls.update();
 				
 				render();
 			}
