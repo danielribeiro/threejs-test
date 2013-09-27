@@ -1,4 +1,4 @@
-function mirror_sample() {
+function mirror_sample(canvasId) {
         // scene size
             var WIDTH = 1400;
             var HEIGHT = 800;
@@ -34,7 +34,7 @@ function mirror_sample() {
 
                 var container = document.body;
                 var canvas = renderer.domElement;
-                canvas.setAttribute("id", "mirror-test");
+                canvas.setAttribute("id", canvasId);
                 container.appendChild( canvas );
 
             }
