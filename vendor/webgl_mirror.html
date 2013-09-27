@@ -181,9 +181,7 @@
 
 			function update() {
 				
-				requestAnimationFrame( update );
-
-				var timer = Date.now() * 0.01;
+				var timer = 1;
 
 				sphereGroup.rotation.y -= 0.002;
 
@@ -201,6 +199,7 @@
 
 			init();
 			fillScene();
+			update();
 			update();
 
 		</script>
