@@ -16,8 +16,8 @@
 		<script>
 
 			// scene size
-			var WIDTH = window.innerWidth;
-			var HEIGHT = window.innerHeight;
+			var WIDTH = 1400;
+			var HEIGHT = 800;
 
 			// camera
 			var VIEW_ANGLE = 45;
@@ -49,7 +49,9 @@
 				camera.lookAt( new THREE.Vector3( 0, 40, 0));
 
 				var container = document.body;
-				container.appendChild( renderer.domElement );
+				var canvas = renderer.domElement;
+				canvas.setAttribute("id", "mirror-test");
+				container.appendChild( canvas );
 
 			}
 
