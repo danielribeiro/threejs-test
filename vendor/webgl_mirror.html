@@ -5,34 +5,10 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
-			body {
-				color: #888888;
-				font-family:Monospace;
-				font-size:13px;
 
-				background-color: #000;
-				margin: 0px;
-				overflow: hidden;
-			}
-
-			#info {
-				position: absolute;
-				top: 0px;
-				width: 200px;
-				left: calc(50% - 100px);
-				text-align: center;
-			}
-
-			a {
-				color: #00f;
-			}
 		</style>
 	</head>
 	<body>
-
-		<div id="container"></div>
-		<div id="info"><a href="http://threejs.org" target="_blank">three.js</a> - mirror
-		</div>
 
 		<script src="three.js"></script>
 		<script src="Mirror.js"></script>
@@ -72,7 +48,7 @@
 
 				camera.lookAt( new THREE.Vector3( 0, 40, 0));
 
-				var container = document.getElementById( 'container' );
+				var container = document.body;
 				container.appendChild( renderer.domElement );
 
 			}
