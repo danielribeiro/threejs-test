@@ -60,7 +60,7 @@
 			function init() {
 
 				// renderer
-				renderer = new THREE.WebGLRenderer();
+				renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
 				renderer.setSize( WIDTH, HEIGHT );
 
 				renderer.autoClear = true;
