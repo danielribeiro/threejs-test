@@ -12,23 +12,24 @@ test( "test", function() {
     var image = new Image();
     image.src = expected;
     image.onload = function() {
-        // context.drawImage(image, 0, 0);
-        // var imageX = 0;
-        // var imageY = 0;
-        // var imageWidth = image.width;
-        // var imageHeight = image.height;
-        // var imageData = context.getImageData(imageX, imageY, imageWidth, imageHeight);
-        // var data = imageData.data;
+        context.drawImage(image, 0, 0);
+        var imageX = 0;
+        var imageY = 0;
+        var imageWidth = image.width;
+        var imageHeight = image.height;
+        var imageData = context.getImageData(imageX, imageY, imageWidth, imageHeight);
+        var data = imageData.data;
 
-        // // iterate over all pixels
-        // for(var i = 0, n = data.length; i < n; i += 4) {
-        //   var red = data[i];
-        //   var green = data[i + 1];
-        //   var blue = data[i + 2];
-        //   var alpha = data[i + 3];
-        //   // console.log(" red, green, blue, alpha ", [red, green, blue, alpha ])
-        // }
+        // iterate over all pixels
+        for(var i = 0, n = data.length; i < n; i += 4) {
+          var red = data[i];
+          var green = data[i + 1];
+          var blue = data[i + 2];
+          var alpha = data[i + 3];
+          // console.log(" red, green, blue, alpha ", [red, green, blue, alpha ])
+        }
     };
+    document.body.appendChild(canvas)
 
     mirror_sample("mirror-test");
     var result = document.getElementById("mirror-test").toDataURL( "image/png" )
