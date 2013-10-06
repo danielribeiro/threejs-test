@@ -1,7 +1,7 @@
 # threejs-test
 
 
-High level scene tests for three.js
+High level scene tests for [three.js](http://threejs.org/)
 
 
 ## Meta
