@@ -1,4 +1,7 @@
 $(function(){
+	var firstImage = "demoassets/People.jpg"
+	var secondImage = "demoassets/People2.jpg"
+
 	var $target = $('#drop-zone');
 
 	function dropZone($target, onDrop){
@@ -120,9 +123,9 @@ $(function(){
 	(function(){
 		$('#example-images').click(function(){
 
-			$('#dropzone1').html('<img src="demoassets/People.jpg"/>');
-			$('#dropzone2').html('<img src="demoassets/People2.jpg"/>');
-			resembleControl = resemble("demoassets/People.jpg").compareTo("demoassets/People2.jpg").onComplete(onComplete);
+			$('#dropzone1').html('<img src="' + firstImage + '"/>');
+			$('#dropzone2').html('<img src="' + secondImage + '"/>');
+			resembleControl = resemble(firstImage).compareTo(secondImage).onComplete(onComplete);
 
 			return false;
 		});
