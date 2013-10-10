@@ -1,6 +1,6 @@
 $(function(){
-	var firstImage = "demoassets/People.jpg"
-	var secondImage = "demoassets/People2.jpg"
+	var firstImage = "demoassets/chr.png"
+	var secondImage = "demoassets/ff.png"
 
 	var $target = $('#drop-zone');
 
