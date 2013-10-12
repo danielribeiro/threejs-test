@@ -1,4 +1,6 @@
 function mirror_sample(canvasId) {
+        //this.devicePixelRatio = 1 so that this works on retina devices
+        this.devicePixelRatio = 1;
         // scene size
             var WIDTH = 1400;
             var HEIGHT = 800;
@@ -36,6 +38,9 @@ function mirror_sample(canvasId) {
                 var canvas = renderer.domElement;
                 canvas.setAttribute("id", canvasId);
                 container.appendChild( canvas );
+                canvas.width = WIDTH;
+                canvas.height = HEIGHT;
+                
 
             }
 
