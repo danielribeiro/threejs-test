@@ -1,12 +1,9 @@
-/**
- * @author bhouston / http://exocortex.com
- */
+module( "Mirror Test" );
 
-module( "TestDummy" );
-
-asyncTest( "test", function() {
+asyncTest( "mirror demo ", function() {
     mirror_sample("mirror-test");
     var canvas = document.getElementById("mirror-test");
+    canvas.setAttribute("class", "input-canvas")
     // canvas.width = 1400;
     // canvas.height = 800;
     var result = canvas.toDataURL("image/png");
