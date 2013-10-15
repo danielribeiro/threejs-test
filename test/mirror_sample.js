@@ -1,6 +1,8 @@
-function mirror_sample(canvasId) {
+function mirror_sample(canvasId, iterationCount) {
         //this.devicePixelRatio = 1 so that this works on retina devices
         this.devicePixelRatio = 1; // Won't work on firefox on macbook retina though.
+        if (iterationCount == null)
+            iterationCount = 2
         // scene size
         var WIDTH = 1400;
         var HEIGHT = 800;
@@ -165,6 +167,7 @@ function mirror_sample(canvasId) {
 
         init();
         fillScene();
-        update();
-        update();
+        while (iterationCount-- > 0) {
+            update();
+        }
 }
