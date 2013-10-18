@@ -1,7 +1,6 @@
 # threejs-test
 
-
-High level scene tests for [three.js](http://threejs.org/).
+High level scene tests for [three.js](http://threejs.org/), using [Resemble.js](https://github.com/Huddle/Resemble.js)
 
 [Live demo](http://danielribeiro.github.io/threejs-test/test/unittests_three.html)
 
