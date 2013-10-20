@@ -4,6 +4,8 @@ High level scene tests for [three.js](http://threejs.org/), using [Resemble.js](
 
 [Live demo](http://danielribeiro.github.io/threejs-test/test/unittests_three.html)
 
+[(![](https://raw.github.com/danielribeiro/threejs-test/master/docs/test.png)](http://danielribeiro.github.io/threejs-test/test/unittests_three.html)
+
 
 ## Meta
 
