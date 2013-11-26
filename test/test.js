@@ -1,11 +1,12 @@
 module( "Mirror Test" );
 
 function displayDiffImage(result) {
-    if (result.misMatchPercentage == 0)
-        return;
+    // if (result.misMatchPercentage == 0)
+    //     return;
+    var currentTest = QUnit.config.current.testNumber - 1;
     var diffImage = document.createElement("img")
     diffImage.src = result.getImageDataUrl();
-    var image_diffs = document.getElementById('image-diffs')
+    image_diffs = document.getElementById('qunit-test-output' + currentTest)
     image_diffs.appendChild(diffImage)
 
 }
