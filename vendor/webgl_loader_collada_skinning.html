@@ -43,7 +43,6 @@
 
 		<script>
 
-			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
 			var container, stats;
 			var camera, scene, renderer;
@@ -73,11 +72,6 @@
 
 				container.appendChild( renderer.domElement );
 
-				stats = new Stats();
-				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = '0px';
-				container.appendChild( stats.domElement );
-				
 
 				var loader = new THREE.ColladaLoader();
 				loader.load( "./models/collada/avatar.dae", function ( geometry, materials ) {
@@ -127,8 +121,6 @@
 				THREE.AnimationHandler.update( delta );
 
 				renderer.render( scene, camera );
-
-				stats.update();
 
 			}
 
