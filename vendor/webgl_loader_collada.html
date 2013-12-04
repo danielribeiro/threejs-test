@@ -32,18 +32,15 @@
 			monster by <a href="http://www.3drt.com/downloads.htm" target="_blank">3drt</a>
 		</div>
 
-		<script src="../build/three.min.js"></script>
 
-		<script src="js/loaders/ColladaLoader.js"></script>
+		<script src="three.js"></script>
+		<script src="ColladaLoader.js"></script>
 
-		<script src="js/Detector.js"></script>
-		<script src="js/libs/stats.min.js"></script>
 
 		<script>
 
-			if ( ! Detector.webgl ) Detector.addGetWebGLMessage();
 
-			var container, stats;
+			var container;
 
 			var camera, scene, renderer, objects;
 			var particleLight, pointLight;
@@ -51,7 +48,7 @@
 
 			var loader = new THREE.ColladaLoader();
 			loader.options.convertUpAxis = true;
-			loader.load( './models/collada/monster/monster.dae', function ( collada ) {
+			loader.load( './models/monster.dae', function ( collada ) {
 
 				dae = collada.scene;
 				skin = collada.skins[ 0 ];
@@ -121,12 +118,6 @@
 
 				container.appendChild( renderer.domElement );
 
-				stats = new Stats();
-				stats.domElement.style.position = 'absolute';
-				stats.domElement.style.top = '0px';
-				container.appendChild( stats.domElement );
-
-				//
 
 				window.addEventListener( 'resize', onWindowResize, false );
 
@@ -176,7 +167,6 @@
 				}
 
 				render();
-				stats.update();
 
 			}
 
