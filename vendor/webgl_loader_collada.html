@@ -10,10 +10,7 @@
 
 
 		<script>
-
-
 			var container;
-
 			var camera, scene, renderer, objects;
 			var particleLight, pointLight;
 			var dae, skin;
@@ -111,11 +108,8 @@
 
 			function animate() {
 
-				var delta = clock.getDelta();
-
 				requestAnimationFrame( animate );
 
-				if ( t > 1 ) t = 0;
 
 				if ( skin ) {
 
@@ -131,10 +125,8 @@
 						skin.morphTargetInfluences[ i ] = 0;
 
 					}
-
-					skin.morphTargetInfluences[ Math.floor( t * 30 ) ] = 1;
-
-					t += delta;
+					var morph = 30
+					skin.morphTargetInfluences[morph] = 1;
 
 				}
 
