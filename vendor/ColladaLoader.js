@@ -3395,8 +3395,7 @@ THREE.ColladaLoader = function () {
 			var transparentColor = this['transparent'];
 			var transparencyLevel = (this.transparent.color.r +
 										this.transparent.color.g + 
-										this.transparent.color.b)
-										/ 3 * this.transparency;
+										this.transparent.color.b) / 3 * this.transparency;
 			
 			if (transparencyLevel > 0) {
 				transparent = true;
