@@ -1,4 +1,9 @@
 function collada_sample() {
+  this.devicePixelRatio = 1; // Won't work on firefox on macbook retina though.
+  // scene size
+  var WIDTH = 1400;
+  var HEIGHT = 800;
+
   var container;
   var camera, scene, renderer, objects;
   var particleLight, pointLight;
@@ -33,7 +38,7 @@ function collada_sample() {
     container = document.createElement('div');
     document.body.appendChild(container);
 
-    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+    camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 2000);
     camera.position.set(2, 2, 3);
 
     scene = new THREE.Scene();
@@ -81,7 +86,7 @@ function collada_sample() {
     scene.add(pointLight);
 
     renderer = new THREE.WebGLRenderer();
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(WIDTH, HEIGHT);
 
     container.appendChild(renderer.domElement);
 
@@ -92,10 +97,10 @@ function collada_sample() {
 
   function onWindowResize() {
 
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = WIDTH / HEIGHT;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(WIDTH, HEIGHT);
 
   }
 
