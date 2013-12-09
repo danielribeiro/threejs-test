@@ -15,20 +15,29 @@
 			var particleLight, pointLight;
 			var dae, skin;
 
-			var loader = new THREE.ColladaLoader();
+
+            var hasDaeLoaded = false;
+            var hasTextureLoaded = false;
+            var initRendering = function () {
+                if (!(hasDaeLoaded && hasTextureLoaded)) {
+                    return;
+                }
+                init();
+                animate();
+            };
+			var loader = new THREE.ColladaLoader(function (collada) {
+                hasTextureLoaded = true;
+                initRendering();
+            });
 			loader.options.convertUpAxis = true;
-			loader.load( './models/monster.dae', function ( collada ) {
-
-				dae = collada.scene;
-				skin = collada.skins[ 0 ];
-
-				dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
-				dae.updateMatrix();
-
-				init();
-				animate();
-
-			} );
+            loader.load('./models/monster.dae', function (collada) {
+                dae = collada.scene;
+                skin = collada.skins[ 0 ];
+                dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
+                dae.updateMatrix();
+                hasDaeLoaded = true;
+                initRendering();
+            });
 
 			function init() {
 

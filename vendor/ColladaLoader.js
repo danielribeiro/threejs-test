@@ -2,8 +2,7 @@
  * @author Tim Knip / http://www.floorplanner.com/ / tim at floorplanner.com
  */
 
-THREE.ColladaLoader = function () {
-
+THREE.ColladaLoader = function (textureLoaderCallback) {
 	var COLLADA = null;
 	var scene = null;
 	var daeScene;
@@ -3430,10 +3429,13 @@ THREE.ColladaLoader = function () {
 								var image = images[surface.init_from];
 
 								if (image) {
-                  var logit = function () {
-                    console.log("cool");
+                  var url = baseUrl + image.init_from;
+                  var onloadFunction = function () {
+                    if (textureLoaderCallback) {
+                      textureLoaderCallback(url);
+                    }
                   };
-									var texture = THREE.ImageUtils.loadTexture(baseUrl + image.init_from, undefined,  logit);
+									var texture = THREE.ImageUtils.loadTexture(url, undefined,  onloadFunction);
 									texture.wrapS = cot.texOpts.wrapU ? THREE.RepeatWrapping : THREE.ClampToEdgeWrapping;
 									texture.wrapT = cot.texOpts.wrapV ? THREE.RepeatWrapping : THREE.ClampToEdgeWrapping;
 									texture.offset.x = cot.texOpts.offsetU;
