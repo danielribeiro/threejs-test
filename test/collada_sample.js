@@ -4,7 +4,7 @@ function collada_sample() {
   var WIDTH = 1400;
   var HEIGHT = 800;
 
-  var container;
+  var container = document.body;
   var camera, scene, renderer, objects;
   var particleLight, pointLight;
   var dae, skin;
@@ -34,9 +34,6 @@ function collada_sample() {
   });
 
   function init() {
-
-    container = document.createElement('div');
-    document.body.appendChild(container);
 
     camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 2000);
     camera.position.set(2, 2, 3);
