@@ -103,9 +103,6 @@ function collada_sample() {
 
   //
 
-  var t = 0;
-  var clock = new THREE.Clock();
-
   function animate() {
 
     // requestAnimationFrame( animate );
