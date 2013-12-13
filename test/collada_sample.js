@@ -1,4 +1,4 @@
-function collada_sample(morphTarget) {
+function collada_sample(canvasId, morphTarget, callback) {
   if (morphTarget == null) {
     morphTarget = 30;
   }
@@ -21,13 +21,14 @@ function collada_sample(morphTarget) {
     }
     init();
     animate();
+    if (callback) callback();
   };
   var loader = new THREE.ColladaLoader(function (collada) {
     hasTextureLoaded = true;
     initRendering();
   });
   loader.options.convertUpAxis = true;
-  loader.load('./models/monster.dae', function (collada) {
+  loader.load('/vendor/models/monster.dae', function (collada) {
     dae = collada.scene;
     skin = collada.skins[ 0 ];
     dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
@@ -88,7 +89,11 @@ function collada_sample(morphTarget) {
     renderer = new THREE.WebGLRenderer();
     renderer.setSize(WIDTH, HEIGHT);
 
-    container.appendChild(renderer.domElement);
+    var canvas = renderer.domElement;
+    canvas.setAttribute("id", canvasId);
+    container.appendChild( canvas );
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
 
 
     window.addEventListener('resize', onWindowResize, false);
