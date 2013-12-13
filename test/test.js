@@ -13,9 +13,9 @@ function displayDiffImage(result) {
 }
 
 asyncTest("mirror demo ", function () {
-  var canvas = "mirror-test"
-  mirror_sample(canvas);
-  var canvas = document.getElementById(canvas);
+  var canvas_name = "mirror-test"
+  mirror_sample(canvas_name);
+  var canvas = document.getElementById(canvas_name);
   canvas.setAttribute("class", "input-canvas")
   var result = canvas.toDataURL("image/png");
   resemble("fixtures/mirror.png").compareTo(result).onComplete(function (result) {
@@ -27,9 +27,9 @@ asyncTest("mirror demo ", function () {
 });
 
 asyncTest("mirror demo needs at least two iteration counts", function () {
-  var canvas = "mirror-test-fail"
-  mirror_sample(canvas, 1);
-  var canvas = document.getElementById(canvas);
+  var canvas_name = "mirror-test-fail"
+  mirror_sample(canvas_name, 1);
+  var canvas = document.getElementById(canvas_name);
   canvas.setAttribute("class", "input-canvas")
   var result = canvas.toDataURL("image/png");
   resemble("fixtures/mirror.png").compareTo(result).onComplete(function (result) {
