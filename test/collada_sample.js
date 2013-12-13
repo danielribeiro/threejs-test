@@ -8,7 +8,7 @@ function collada_sample(canvasId, morphTarget, callback) {
   var HEIGHT = 800;
 
   var container = document.body;
-  var camera, scene, renderer, objects;
+  var camera, scene, renderer;
   var particleLight, pointLight;
   var dae, skin;
 
@@ -86,7 +86,7 @@ function collada_sample(canvasId, morphTarget, callback) {
     pointLight.position = particleLight.position;
     scene.add(pointLight);
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
     renderer.setSize(WIDTH, HEIGHT);
 
     var canvas = renderer.domElement;
