@@ -15,10 +15,10 @@ URL: https://github.com/Huddle/Resemble.js
 		var updateCallbackArray = [];
 
 		var tolerance = { // between 0 and 255
-			red: 32,
-			green: 32,
-			blue: 32,
-			minBrightness: 32,
+			red: 16,
+			green: 16,
+			blue: 16,
+			minBrightness: 16,
 			maxBrightness: 240
 		};
 
