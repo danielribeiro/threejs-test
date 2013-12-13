@@ -3198,8 +3198,7 @@ THREE.ColladaLoader = function (textureLoaderCallback) {
 	function ColorOrTexture () {
 
 		this.color = new THREE.Color();
-//		this.color.setRGB( Math.random(), Math.random(), Math.random() );
-    this.color.setRGB( 0, 0, 0);
+		this.color.setRGB( Math.random(), Math.random(), Math.random() );
 		this.color.a = 1.0;
 
 		this.texture = null;
