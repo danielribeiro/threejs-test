@@ -1,4 +1,7 @@
-function collada_sample() {
+function collada_sample(morphTarget) {
+  if (morphTarget == null) {
+    morphTarget = 30;
+  }
   this.devicePixelRatio = 1; // Won't work on firefox on macbook retina though.
   // scene size
   var WIDTH = 1400;
@@ -121,7 +124,7 @@ function collada_sample() {
         skin.morphTargetInfluences[ i ] = 0;
 
       }
-      var morph = 30
+      var morph = morphTarget
       skin.morphTargetInfluences[morph] = 1;
 
     }
