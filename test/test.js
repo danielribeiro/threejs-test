@@ -41,7 +41,7 @@ asyncTest("mirror demo needs at least two iteration counts", function () {
 });
 
 asyncTest("Collada works", function () {
-  collada_sample("collada", null,
+  collada_sample("collada", 30,
     function () {
       var canvas = document.getElementById("collada");
       canvas.setAttribute("class", "input-canvas")
@@ -53,6 +53,20 @@ asyncTest("Collada works", function () {
         start();
       })
     });
-
 });
 
+
+asyncTest("Collada fails with a different morph target", function () {
+  collada_sample("collada-fail", 29,
+    function () {
+      var canvas = document.getElementById("collada-fail");
+      canvas.setAttribute("class", "input-canvas")
+      var result = canvas.toDataURL("image/png");
+      resemble("fixtures/collada.png").compareTo(result).onComplete(function (result) {
+        displayDiffImage(result);
+        equal(true, result.isSameDimensions, "Images have the same dimensions");
+        equal(0, result.misMatchPercentage, "Images are the same");
+        start();
+      })
+    });
+});
