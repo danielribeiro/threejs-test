@@ -25,7 +25,7 @@ asyncTest( "mirror demo ", function() {
     })
 });
 
-asyncTest( "mirror demo needs at least two iteratino counts", function() {
+asyncTest( "mirror demo needs at least two iteration counts", function() {
     var canvas = "mirror-test-fail"
     mirror_sample(canvas, 1);
     var canvas = document.getElementById(canvas);
@@ -38,4 +38,6 @@ asyncTest( "mirror demo needs at least two iteratino counts", function() {
         start();
     })
 });
+
+
 
