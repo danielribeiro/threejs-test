@@ -3,6 +3,7 @@ module("Mirror Test");
 function displayDiffImage(result) {
   var currentTest = QUnit.config.current.testNumber - 1;
   var diffImage = document.createElement("img")
+  diffImage.setAttribute("class", "diff-image")
   diffImage.src = result.getImageDataUrl();
   image_diffs = document.getElementById('qunit-test-output' + currentTest)
   image_diffs.appendChild(diffImage)
