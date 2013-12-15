@@ -25,7 +25,7 @@
                 map.wrapS = map.wrapT = THREE.RepeatWrapping;
                 map.anisotropy = 16;
                 init();
-                animate();
+                render();
             });
             map.wrapS = map.wrapT = THREE.RepeatWrapping;
             map.anisotropy = 16;
@@ -143,14 +143,10 @@
 
 			//
 
-			function animate() {
-				requestAnimationFrame( animate );
-				render();
-			}
 
 			function render() {
 
-				var timer = Date.now() * 0.0001;
+				var timer = 138709833.5321;
 
 				camera.position.x = Math.cos( timer ) * 800;
 				camera.position.z = Math.sin( timer ) * 800;
