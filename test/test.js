@@ -2,7 +2,6 @@ module("Mirror Test");
 
 function displayDiffImage(result) {
   var currentTest = QUnit.config.current.testNumber - 1;
-  console.log("current test = ", currentTest);
   var diffImage = document.createElement("img")
   diffImage.src = result.getImageDataUrl();
   image_diffs = document.getElementById('qunit-test-output' + currentTest)
@@ -10,8 +9,14 @@ function displayDiffImage(result) {
 
 }
 
-asyncTest("mirror demo ", function () {
-  Math.reseed();
+function sceneTest(name, block) {
+  asyncTest("mirror demo ", function () {
+    Math.reseed();
+    block();
+  });
+};
+
+sceneTest("mirror demo ", function () {
   var canvas_name = "mirror-test"
   mirror_sample(canvas_name);
   var canvas = document.getElementById(canvas_name);
@@ -25,8 +30,7 @@ asyncTest("mirror demo ", function () {
   })
 });
 
-asyncTest("mirror demo needs at least two iteration counts", function () {
-  Math.reseed();
+sceneTest("mirror demo needs at least two iteration counts", function () {
   var canvas_name = "mirror-test-fail"
   mirror_sample(canvas_name, 1);
   var canvas = document.getElementById(canvas_name);
@@ -40,8 +44,7 @@ asyncTest("mirror demo needs at least two iteration counts", function () {
   })
 });
 
-asyncTest("Collada works", function () {
-  Math.reseed();
+sceneTest("Collada works", function () {
   collada_sample("collada", 30,
     function () {
       var canvas = document.getElementById("collada");
@@ -57,8 +60,7 @@ asyncTest("Collada works", function () {
 });
 
 
-asyncTest("Collada fails with a different morph target", function () {
-  Math.reseed();
+sceneTest("Collada fails with a different morph target", function () {
   collada_sample("collada-fail", 29,
     function () {
       var canvas = document.getElementById("collada-fail");
