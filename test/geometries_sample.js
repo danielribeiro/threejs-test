@@ -7,9 +7,13 @@ function geometries_sample() {
     map.anisotropy = 16;
     init();
     render();
+    console.log("rendered");
   });
   map.wrapS = map.wrapT = THREE.RepeatWrapping;
   map.anisotropy = 16;
+
+  var WIDTH = 1120;
+  var HEIGHT = 640;
 
 
   function init() {
@@ -17,7 +21,7 @@ function geometries_sample() {
     container = document.createElement('div');
     document.body.appendChild(container);
 
-    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
+    camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 2000);
     camera.position.y = 400;
 
     scene = new THREE.Scene();
@@ -102,7 +106,7 @@ function geometries_sample() {
 
     //
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(WIDTH, HEIGHT);
 
     container.appendChild(renderer.domElement);
 
@@ -114,15 +118,12 @@ function geometries_sample() {
 
   function onWindowResize() {
 
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = WIDTH / HEIGHT;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(WIDTH, HEIGHT);
 
   }
-
-//
-
 
   function render() {
 
