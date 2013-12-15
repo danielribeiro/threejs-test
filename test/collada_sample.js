@@ -4,8 +4,8 @@ function collada_sample(canvasId, morphTarget, callback) {
   }
   this.devicePixelRatio = 1; // Won't work on firefox on macbook retina though.
   // scene size
-  var WIDTH = 1400;
-  var HEIGHT = 800;
+  var WIDTH = 1120;
+  var HEIGHT = 640;
 
   var container = document.body;
   var camera, scene, renderer;

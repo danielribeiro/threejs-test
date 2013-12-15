@@ -4,8 +4,8 @@ function mirror_sample(canvasId, iterationCount) {
   if (iterationCount == null)
     iterationCount = 2
   // scene size
-  var WIDTH = 1400;
-  var HEIGHT = 800;
+  var WIDTH = 1120;
+  var HEIGHT = 640;
 
   // camera
   var VIEW_ANGLE = 45;
