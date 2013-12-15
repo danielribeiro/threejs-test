@@ -76,9 +76,9 @@ function collada_sample(canvasId, morphTarget, callback) {
     scene.add(new THREE.AmbientLight(0xcccccc));
 
     var directionalLight = new THREE.DirectionalLight(/*Math.random() * 0xffffff*/0xeeeeee);
-    directionalLight.position.x = 1 - 0.5;
-    directionalLight.position.y = 1 - 0.5;
-    directionalLight.position.z = 1 - 0.5;
+    directionalLight.position.x = Math.random() - 0.5;
+    directionalLight.position.y = Math.random() - 0.5;
+    directionalLight.position.z = Math.random() - 0.5;
     directionalLight.position.normalize();
     scene.add(directionalLight);
 

@@ -13,6 +13,7 @@ function displayDiffImage(result) {
 }
 
 asyncTest("mirror demo ", function () {
+  Math.reseed();
   var canvas_name = "mirror-test"
   mirror_sample(canvas_name);
   var canvas = document.getElementById(canvas_name);
@@ -27,6 +28,7 @@ asyncTest("mirror demo ", function () {
 });
 
 asyncTest("mirror demo needs at least two iteration counts", function () {
+  Math.reseed();
   var canvas_name = "mirror-test-fail"
   mirror_sample(canvas_name, 1);
   var canvas = document.getElementById(canvas_name);
@@ -41,6 +43,7 @@ asyncTest("mirror demo needs at least two iteration counts", function () {
 });
 
 asyncTest("Collada works", function () {
+  Math.reseed();
   collada_sample("collada", 30,
     function () {
       var canvas = document.getElementById("collada");
@@ -57,6 +60,7 @@ asyncTest("Collada works", function () {
 
 
 asyncTest("Collada fails with a different morph target", function () {
+  Math.reseed();
   collada_sample("collada-fail", 29,
     function () {
       var canvas = document.getElementById("collada-fail");
