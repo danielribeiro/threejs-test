@@ -30,23 +30,28 @@ function sceneTest(name, block) {
 
 sceneTest("mirror demo ", function(canvasName, resembleFn) {
   mirror_sample(canvasName);
-  resembleFn("mirror")
+  resembleFn("mirror");
 });
 
 sceneTest("mirror demo needs at least two iteration counts", function(canvasName, resembleFn) {
   mirror_sample(canvasName, 1);
-  resembleFn("mirror")
+  resembleFn("mirror");
 });
 
 sceneTest("Collada works", function(canvasName, resembleFn) {
   collada_sample(canvasName, 30, function() {
-    resembleFn("collada")
+    resembleFn("collada");
   });
 });
 
-
 sceneTest("Collada fails with a different morph target", function(canvasName, resembleFn) {
   collada_sample(canvasName, 29, function() {
-    resembleFn("collada")
+    resembleFn("collada");
+  });
+});
+
+sceneTest("Multiple geometries", function(canvasName, resembleFn) {
+  geometries_sample(canvasName, function() {
+    resembleFn("geometries");
   });
 });

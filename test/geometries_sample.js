@@ -1,5 +1,4 @@
-function geometries_sample() {
-  var container
+function geometries_sample(canvasId, callback) {
   var camera, scene, renderer;
 
   var map = THREE.ImageUtils.loadTexture('../vendor/textures/ash_uvgrid01.jpg', undefined, function() {
@@ -7,7 +6,7 @@ function geometries_sample() {
     map.anisotropy = 16;
     init();
     render();
-    console.log("rendered");
+    callback();
   });
   map.wrapS = map.wrapT = THREE.RepeatWrapping;
   map.anisotropy = 16;
@@ -17,9 +16,6 @@ function geometries_sample() {
 
 
   function init() {
-
-    container = document.createElement('div');
-    document.body.appendChild(container);
 
     camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 2000);
     camera.position.y = 400;
@@ -108,20 +104,12 @@ function geometries_sample() {
     renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
     renderer.setSize(WIDTH, HEIGHT);
 
-    container.appendChild(renderer.domElement);
-
-    //
-
-    window.addEventListener('resize', onWindowResize, false);
-
-  }
-
-  function onWindowResize() {
-
-    camera.aspect = WIDTH / HEIGHT;
-    camera.updateProjectionMatrix();
-
-    renderer.setSize(WIDTH, HEIGHT);
+    var container = document.body;
+    var canvas = renderer.domElement;
+    canvas.setAttribute("id", canvasId);
+    container.appendChild(canvas);
+    canvas.width = WIDTH;
+    canvas.height = HEIGHT;
 
   }
 
