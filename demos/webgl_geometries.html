@@ -21,8 +21,15 @@
 			var container
 			var camera, scene, renderer;
 
-			init();
-			animate();
+            var map = THREE.ImageUtils.loadTexture( '../vendor/textures/ash_uvgrid01.jpg', undefined, function() {
+                map.wrapS = map.wrapT = THREE.RepeatWrapping;
+                map.anisotropy = 16;
+                init();
+                animate();
+            });
+            map.wrapS = map.wrapT = THREE.RepeatWrapping;
+            map.anisotropy = 16;
+
 
 			function init() {
 
@@ -42,13 +49,7 @@
 				light.position.set( 0, 1, 0 );
 				scene.add( light );
 
-				var map = THREE.ImageUtils.loadTexture( '../vendor/textures/ash_uvgrid01.jpg' );
-				map.wrapS = map.wrapT = THREE.RepeatWrapping;
-				map.anisotropy = 16;
-
 				var material = new THREE.MeshLambertMaterial( { ambient: 0xbbbbbb, map: map, side: THREE.DoubleSide } );
-
-				//
 
 				object = new THREE.Mesh( new THREE.SphereGeometry( 75, 20, 10 ), material );
 				object.position.set( -400, 0, 200 );
