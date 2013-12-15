@@ -13,7 +13,18 @@ function sceneTest(name, block) {
   asyncTest (name, function() {
     var canvasName = name.replace (/\s+/g, "-");
     Math.reseed ();
-    block (canvasName);
+    var resembleFn = function() {
+      var canvas = document.getElementById (canvasName);
+      canvas.setAttribute ("class", "input-canvas")
+      var result = canvas.toDataURL ("image/png");
+      resemble ("fixtures/collada.png").compareTo (result).onComplete (function(result) {
+        displayDiffImage (result);
+        equal (true, result.isSameDimensions, "Images have the same dimensions");
+        equal (0, result.misMatchPercentage, "Images are the same");
+        start ();
+      });
+    }
+    block (canvasName, resembleFn);
   });
 };
 
@@ -43,19 +54,8 @@ sceneTest ("mirror demo needs at least two iteration counts", function(canvasNam
   })
 });
 
-sceneTest ("Collada works", function(canvasName) {
-  collada_sample (canvasName, 30,
-    function() {
-      var canvas = document.getElementById (canvasName);
-      canvas.setAttribute ("class", "input-canvas")
-      var result = canvas.toDataURL ("image/png");
-      resemble ("fixtures/collada.png").compareTo (result).onComplete (function(result) {
-        displayDiffImage (result);
-        equal (true, result.isSameDimensions, "Images have the same dimensions");
-        equal (0, result.misMatchPercentage, "Images are the same");
-        start ();
-      })
-    });
+sceneTest ("Collada works", function(canvasName, resembleFn) {
+  collada_sample (canvasName, 30, resembleFn);
 });
 
 
