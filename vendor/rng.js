@@ -233,3 +233,15 @@
     RNG.$ = new RNG();
     window.RNG = RNG;
 })()
+
+
+//Patch for Math.random to be seedable
+Math.reseed = function () {
+  this.__rng = new RNG("seed");
+};
+
+Math.random = function () {
+  return this.__rng.random();
+};
+
+Math.reseed();
