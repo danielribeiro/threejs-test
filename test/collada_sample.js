@@ -15,7 +15,7 @@ function collada_sample(canvasId, morphTarget, callback) {
 
   var hasDaeLoaded = false;
   var hasTextureLoaded = false;
-  var initRendering = function () {
+  var initRendering = function() {
     if (!(hasDaeLoaded && hasTextureLoaded)) {
       return;
     }
@@ -23,12 +23,12 @@ function collada_sample(canvasId, morphTarget, callback) {
     animate();
     if (callback) callback();
   };
-  var loader = new THREE.ColladaLoader(function (collada) {
+  var loader = new THREE.ColladaLoader(function(collada) {
     hasTextureLoaded = true;
     initRendering();
   });
   loader.options.convertUpAxis = true;
-  loader.load('/vendor/models/monster.dae', function (collada) {
+  loader.load('/vendor/models/monster.dae', function(collada) {
     dae = collada.scene;
     skin = collada.skins[ 0 ];
     dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
@@ -91,7 +91,7 @@ function collada_sample(canvasId, morphTarget, callback) {
 
     var canvas = renderer.domElement;
     canvas.setAttribute("id", canvasId);
-    container.appendChild( canvas );
+    container.appendChild(canvas);
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
 
