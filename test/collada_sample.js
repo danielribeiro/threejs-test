@@ -28,7 +28,7 @@ function collada_sample(canvasId, morphTarget, callback) {
     initRendering();
   });
   loader.options.convertUpAxis = true;
-  loader.load('/vendor/models/monster.dae', function(collada) {
+  loader.load('../vendor/models/monster.dae', function(collada) {
     dae = collada.scene;
     skin = collada.skins[ 0 ];
     dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
