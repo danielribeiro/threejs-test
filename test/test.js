@@ -13,8 +13,8 @@ function sceneTest(name, block) {
   asyncTest(name, function() {
     var canvasName = name.replace(/\s+/g, "-");
     Math.reseed();
-    var resembleFn = function(fixtureName) {
-      var canvas = document.getElementById(canvasName);
+    var resembleFn = function(fixtureName, canvas) {
+      canvas.setAttribute("id", canvasName)
       canvas.setAttribute("class", "input-canvas")
       var result = canvas.toDataURL("image/png");
       resemble("fixtures/" + fixtureName + ".png").compareTo(result).onComplete(function(result) {
@@ -24,34 +24,32 @@ function sceneTest(name, block) {
         start();
       });
     }
-    block(canvasName, resembleFn);
+    block(resembleFn);
   });
 };
 
-sceneTest("mirror demo ", function(canvasName, resembleFn) {
-  mirror_sample(canvasName);
-  resembleFn("mirror");
+sceneTest("mirror demo ", function(resembleFn) {
+  resembleFn("mirror", mirror_sample());
 });
 
-sceneTest("mirror demo needs at least two iteration counts", function(canvasName, resembleFn) {
-  mirror_sample(canvasName, 1);
-  resembleFn("mirror");
+sceneTest("mirror demo needs at least two iteration counts", function(resembleFn) {
+  resembleFn("mirror", mirror_sample(1));
 });
 
-sceneTest("Collada works", function(canvasName, resembleFn) {
-  collada_sample(canvasName, 30, function() {
-    resembleFn("collada");
+sceneTest("Collada works", function(resembleFn) {
+  collada_sample(30, function(canvas) {
+    resembleFn("collada", canvas);
   });
 });
 
-sceneTest("Collada fails with a different morph target", function(canvasName, resembleFn) {
-  collada_sample(canvasName, 29, function() {
-    resembleFn("collada");
+sceneTest("Collada fails with a different morph target", function(resembleFn) {
+  collada_sample(29, function(canvas) {
+    resembleFn("collada", canvas);
   });
 });
 
-sceneTest("Multiple geometries", function(canvasName, resembleFn) {
-  geometries_sample(canvasName, function() {
-    resembleFn("geometries");
+sceneTest("Multiple geometries", function(resembleFn) {
+  geometries_sample(function(canvas) {
+    resembleFn("geometries", canvas);
   });
 });

@@ -13,7 +13,7 @@ function mirror_sample(iterationCount) {
   var NEAR = 1;
   var FAR = 500;
 
-  var camera, scane, renderer;
+  var camera, renderer, scene, canvas;
 
   var verticalMirror, groundMirror;
   var sphereGroup, smallSphere;
@@ -37,7 +37,7 @@ function mirror_sample(iterationCount) {
     camera.lookAt(new THREE.Vector3(0, 40, 0));
 
     var container = document.body;
-    var canvas = renderer.domElement;
+    canvas = renderer.domElement;
     container.appendChild(canvas);
     canvas.width = WIDTH;
     canvas.height = HEIGHT;

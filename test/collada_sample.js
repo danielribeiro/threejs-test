@@ -21,7 +21,7 @@ function collada_sample(morphTarget, callback) {
     }
     init();
     animate();
-    if (callback) callback();
+    if (callback) callback(canvas);
   };
   var loader = new THREE.ColladaLoader(function(collada) {
     hasTextureLoaded = true;
