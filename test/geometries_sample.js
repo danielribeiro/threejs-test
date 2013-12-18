@@ -1,5 +1,5 @@
-function geometries_sample(canvasId, callback) {
-  var camera, scene, renderer;
+function geometries_sample(callback) {
+  var camera, scene, renderer, canvas;
 
   var map = THREE.ImageUtils.loadTexture('../vendor/textures/ash_uvgrid01.jpg', undefined, function() {
     map.wrapS = map.wrapT = THREE.RepeatWrapping;
@@ -105,8 +105,7 @@ function geometries_sample(canvasId, callback) {
     renderer.setSize(WIDTH, HEIGHT);
 
     var container = document.body;
-    var canvas = renderer.domElement;
-    canvas.setAttribute("id", canvasId);
+    canvas = renderer.domElement;
     container.appendChild(canvas);
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
@@ -134,4 +133,5 @@ function geometries_sample(canvasId, callback) {
     renderer.render(scene, camera);
 
   }
+  return canvas;
 };

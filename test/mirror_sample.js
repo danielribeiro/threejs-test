@@ -1,4 +1,4 @@
-function mirror_sample(canvasId, iterationCount) {
+function mirror_sample(iterationCount) {
   //this.devicePixelRatio = 1 so that this works on retina devices
   this.devicePixelRatio = 1; // Won't work on firefox on macbook retina though.
   if (iterationCount == null)
@@ -38,7 +38,6 @@ function mirror_sample(canvasId, iterationCount) {
 
     var container = document.body;
     var canvas = renderer.domElement;
-    canvas.setAttribute("id", canvasId);
     container.appendChild(canvas);
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
@@ -170,4 +169,5 @@ function mirror_sample(canvasId, iterationCount) {
   while (iterationCount-- > 0) {
     update();
   }
+  return canvas;
 }

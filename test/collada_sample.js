@@ -1,4 +1,4 @@
-function collada_sample(canvasId, morphTarget, callback) {
+function collada_sample(morphTarget, callback) {
   if (morphTarget == null) {
     morphTarget = 30;
   }
@@ -8,7 +8,7 @@ function collada_sample(canvasId, morphTarget, callback) {
   var HEIGHT = 640;
 
   var container = document.body;
-  var camera, scene, renderer;
+  var camera, scene, renderer, canvas;
   var particleLight, pointLight;
   var dae, skin;
 
@@ -89,8 +89,7 @@ function collada_sample(canvasId, morphTarget, callback) {
     renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
     renderer.setSize(WIDTH, HEIGHT);
 
-    var canvas = renderer.domElement;
-    canvas.setAttribute("id", canvasId);
+    canvas = renderer.domElement;
     container.appendChild(canvas);
     canvas.width = WIDTH;
     canvas.height = HEIGHT;
@@ -154,4 +153,5 @@ function collada_sample(canvasId, morphTarget, callback) {
     renderer.render(scene, camera);
 
   }
+  return canvas;
 }
