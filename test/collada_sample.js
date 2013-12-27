@@ -1,45 +1,33 @@
-function collada_sample(morphTarget, callback) {
-  if (morphTarget == null) {
-    morphTarget = 30;
-  }
-  this.devicePixelRatio = 1; // Won't work on firefox on macbook retina though.
-  // scene size
-  var WIDTH = 1120;
-  var HEIGHT = 640;
+// ORIGINAL: https://github.com/mrdoob/three.js/blob/master/examples/webgl_loader_collada.html
+  if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-  var container = document.body;
-  var camera, scene, renderer, canvas;
+  var container, stats;
+
+  var camera, scene, renderer, objects;
   var particleLight, pointLight;
   var dae, skin;
 
-
-  var hasDaeLoaded = false;
-  var hasTextureLoaded = false;
-  var initRendering = function() {
-    if (!(hasDaeLoaded && hasTextureLoaded)) {
-      return;
-    }
-    init();
-    animate();
-    if (callback) callback(canvas);
-  };
-  var loader = new THREE.ColladaLoader(function(collada) {
-    hasTextureLoaded = true;
-    initRendering();
-  });
+  var loader = new THREE.ColladaLoader();
   loader.options.convertUpAxis = true;
-  loader.load('../vendor/models/monster.dae', function(collada) {
+  loader.load('./models/collada/monster/monster.dae', function(collada) {
+
     dae = collada.scene;
     skin = collada.skins[ 0 ];
+
     dae.scale.x = dae.scale.y = dae.scale.z = 0.002;
     dae.updateMatrix();
-    hasDaeLoaded = true;
-    initRendering();
+
+    init();
+    animate();
+
   });
 
   function init() {
 
-    camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 2000);
+    container = document.createElement('div');
+    document.body.appendChild(container);
+
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
     camera.position.set(2, 2, 3);
 
     scene = new THREE.Scene();
@@ -86,14 +74,17 @@ function collada_sample(morphTarget, callback) {
     pointLight.position = particleLight.position;
     scene.add(pointLight);
 
-    renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
-    renderer.setSize(WIDTH, HEIGHT);
+    renderer = new THREE.WebGLRenderer();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-    canvas = renderer.domElement;
-    container.appendChild(canvas);
-    canvas.width = WIDTH;
-    canvas.height = HEIGHT;
+    container.appendChild(renderer.domElement);
 
+    stats = new Stats();
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.top = '0px';
+    container.appendChild(stats.domElement);
+
+    //
 
     window.addEventListener('resize', onWindowResize, false);
 
@@ -101,18 +92,25 @@ function collada_sample(morphTarget, callback) {
 
   function onWindowResize() {
 
-    camera.aspect = WIDTH / HEIGHT;
+    camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 
-    renderer.setSize(WIDTH, HEIGHT);
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
   }
 
   //
 
+  var t = 0;
+  var clock = new THREE.Clock();
+
   function animate() {
 
-    // requestAnimationFrame( animate );
+    var delta = clock.getDelta();
+
+    requestAnimationFrame(animate);
+
+    if (t > 1) t = 0;
 
     if (skin) {
 
@@ -128,18 +126,22 @@ function collada_sample(morphTarget, callback) {
         skin.morphTargetInfluences[ i ] = 0;
 
       }
-      var morph = morphTarget
-      skin.morphTargetInfluences[morph] = 1;
+
+      skin.morphTargetInfluences[ Math.floor(t * 30) ] = 1;
+
+      t += delta;
 
     }
 
     render();
+    stats.update();
 
   }
 
   function render() {
 
-    var timer = 0.7;
+    var timer = Date.now() * 0.0005;
+
     camera.position.x = Math.cos(timer) * 10;
     camera.position.y = 2;
     camera.position.z = Math.sin(timer) * 10;
@@ -153,5 +155,3 @@ function collada_sample(morphTarget, callback) {
     renderer.render(scene, camera);
 
   }
-  return canvas;
-}

@@ -1,11 +1,7 @@
-function mirror_sample(iterationCount) {
-  //this.devicePixelRatio = 1 so that this works on retina devices
-  this.devicePixelRatio = 1; // Won't work on firefox on macbook retina though.
-  if (iterationCount == null)
-    iterationCount = 2
+// ORIGINAL: https://github.com/mrdoob/three.js/blob/master/examples/webgl_mirror.html
   // scene size
-  var WIDTH = 1120;
-  var HEIGHT = 640;
+  var WIDTH = window.innerWidth;
+  var HEIGHT = window.innerHeight;
 
   // camera
   var VIEW_ANGLE = 45;
@@ -13,7 +9,9 @@ function mirror_sample(iterationCount) {
   var NEAR = 1;
   var FAR = 500;
 
-  var camera, renderer, scene, canvas;
+  var camera, scane, renderer;
+
+  var cameraControls;
 
   var verticalMirror, groundMirror;
   var sphereGroup, smallSphere;
@@ -21,7 +19,7 @@ function mirror_sample(iterationCount) {
   function init() {
 
     // renderer
-    renderer = new THREE.WebGLRenderer({preserveDrawingBuffer: true});
+    renderer = new THREE.WebGLRenderer();
     renderer.setSize(WIDTH, HEIGHT);
 
     renderer.autoClear = true;
@@ -34,14 +32,14 @@ function mirror_sample(iterationCount) {
     camera = new THREE.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
     camera.position.set(0, 75, 160);
 
-    camera.lookAt(new THREE.Vector3(0, 40, 0));
+    cameraControls = new THREE.OrbitControls(camera, renderer.domElement);
+    cameraControls.target.set(0, 40, 0);
+    cameraControls.maxDistance = 400;
+    cameraControls.minDistance = 10;
+    cameraControls.update();
 
-    var container = document.body;
-    canvas = renderer.domElement;
-    container.appendChild(canvas);
-    canvas.width = WIDTH;
-    canvas.height = HEIGHT;
-
+    var container = document.getElementById('container');
+    container.appendChild(renderer.domElement);
 
   }
 
@@ -148,7 +146,9 @@ function mirror_sample(iterationCount) {
 
   function update() {
 
-    var timer = 1;
+    requestAnimationFrame(update);
+
+    var timer = Date.now() * 0.01;
 
     sphereGroup.rotation.y -= 0.002;
 
@@ -160,14 +160,11 @@ function mirror_sample(iterationCount) {
     smallSphere.rotation.y = ( Math.PI / 2 ) - timer * 0.1;
     smallSphere.rotation.z = timer * 0.8;
 
+    cameraControls.update();
 
     render();
   }
 
   init();
   fillScene();
-  while (iterationCount-- > 0) {
-    update();
-  }
-  return canvas;
-}
+  update();
