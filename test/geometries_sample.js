@@ -1,120 +1,174 @@
-function geometries_sample(callback) {
-  var camera, scene, renderer, canvas;
+// ORIGINAL: https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometries2.html
+  /* Testing the new Parametric Surfaces Geometries*/
+  if (!Detector.webgl) Detector.addGetWebGLMessage();
 
-  var map = THREE.ImageUtils.loadTexture('../vendor/textures/ash_uvgrid01.jpg', undefined, function() {
-    map.wrapS = map.wrapT = THREE.RepeatWrapping;
-    map.anisotropy = 16;
-    init();
-    render();
-    callback(canvas);
-  });
-  map.wrapS = map.wrapT = THREE.RepeatWrapping;
-  map.anisotropy = 16;
+  var container, stats;
 
-  var WIDTH = 1120;
-  var HEIGHT = 640;
+  var camera, scene, renderer;
 
+  init();
+  animate();
 
   function init() {
 
-    camera = new THREE.PerspectiveCamera(45, WIDTH / HEIGHT, 1, 2000);
+    container = document.createElement('div');
+    document.body.appendChild(container);
+
+    camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
     camera.position.y = 400;
 
     scene = new THREE.Scene();
 
-    var light, object;
+    var light, object, materials;
 
     scene.add(new THREE.AmbientLight(0x404040));
 
     light = new THREE.DirectionalLight(0xffffff);
-    light.position.set(0, 1, 0);
+    light.position.set(0, 0, 1);
     scene.add(light);
 
-    var material = new THREE.MeshLambertMaterial({ ambient: 0xbbbbbb, map: map, side: THREE.DoubleSide });
+    var map = THREE.ImageUtils.loadTexture('textures/ash_uvgrid01.jpg');
+    map.wrapS = map.wrapT = THREE.RepeatWrapping;
+    map.anisotropy = 16;
 
-    object = new THREE.Mesh(new THREE.SphereGeometry(75, 20, 10), material);
-    object.position.set(-400, 0, 200);
+    materials = [
+      new THREE.MeshLambertMaterial({ ambient: 0xbbbbbb, map: map, side: THREE.DoubleSide }),
+      new THREE.MeshBasicMaterial({ color: 0xffffff, wireframe: true, transparent: true, opacity: 0.1, side: THREE.DoubleSide })
+    ];
+
+
+    var heightScale = 1;
+    var p = 2;
+    var q = 3;
+    var radius = 150, tube = 10, segmentsR = 50, segmentsT = 20;
+
+    var GrannyKnot = new THREE.Curves.GrannyKnot();
+
+    var torus2 = new THREE.ParametricGeometries.TorusKnotGeometry(radius, tube, segmentsR, segmentsT, p, q, heightScale);
+    var sphere2 = new THREE.ParametricGeometries.SphereGeometry(75, 20, 10);
+    var tube2 = new THREE.ParametricGeometries.TubeGeometry(GrannyKnot, 150, 2, 8, true, false);
+
+    // var torus = new THREE.TorusKnotGeometry( radius, tube, segmentsR, segmentsT, p , q, heightScale );
+    // var sphere = new THREE.SphereGeometry( 75, 20, 10 );
+    // var tube = new THREE.TubeGeometry( GrannyKnot, 150, 2, 8, true, false );
+
+
+    // var benchmarkCopies = 1000;
+    // var benchmarkObject = tube;
+    // var rand = function() { return (Math.random() - 0.5 ) * 600; };
+    // for (var b=0;b<benchmarkCopies;b++) {
+    //    object = THREE.SceneUtils.createMultiMaterialObject( benchmarkObject, materials );
+    //   object.position.set( rand(), rand(), rand() );
+    //   scene.add( object );
+    // }
+
+    console.log(THREE.ParametricGeometries);
+    var geo;
+
+    // Klein Bottle
+
+    geo = new THREE.ParametricGeometry(THREE.ParametricGeometries.klein, 20, 20);
+    object = THREE.SceneUtils.createMultiMaterialObject(geo, materials);
+    object.position.set(0, 0, 0);
+    object.scale.multiplyScalar(10);
     scene.add(object);
 
-    object = new THREE.Mesh(new THREE.IcosahedronGeometry(75, 1), material);
-    object.position.set(-200, 0, 200);
+    // Mobius Strip
+
+    geo = new THREE.ParametricGeometry(THREE.ParametricGeometries.mobius, 20, 20);
+    object = THREE.SceneUtils.createMultiMaterialObject(geo, materials);
+    object.position.set(10, 0, 0);
+    object.scale.multiplyScalar(100);
     scene.add(object);
 
-    object = new THREE.Mesh(new THREE.OctahedronGeometry(75, 2), material);
-    object.position.set(0, 0, 200);
-    scene.add(object);
-
-    object = new THREE.Mesh(new THREE.TetrahedronGeometry(75, 0), material);
-    object.position.set(200, 0, 200);
-    scene.add(object);
-
-    //
-
-    object = new THREE.Mesh(new THREE.PlaneGeometry(100, 100, 4, 4), material);
-    object.position.set(-400, 0, 0);
-    scene.add(object);
-
-    object = new THREE.Mesh(new THREE.CubeGeometry(100, 100, 100, 4, 4, 4), material);
-    object.position.set(-200, 0, 0);
-    scene.add(object);
-
-    object = new THREE.Mesh(new THREE.CircleGeometry(50, 20, 0, Math.PI * 2), material);
+    var geo = new THREE.ParametricGeometry(THREE.ParametricGeometries.plane(200, 200), 10, 20);
+    // document.body.appendChild( THREE.UVsDebug( geo ));
+    object = THREE.SceneUtils.createMultiMaterialObject(geo, materials);
     object.position.set(0, 0, 0);
     scene.add(object);
 
-    object = new THREE.Mesh(new THREE.RingGeometry(10, 50, 20, 5, 0, Math.PI * 2), material);
+    // object = THREE.SceneUtils.createMultiMaterialObject( torus, materials );
+    // object.position.set( 0, 0, 0 );
+    // scene.add( object );
+
+    object = THREE.SceneUtils.createMultiMaterialObject(torus2, materials);
+    object.position.set(0, 100, 0);
+    scene.add(object);
+
+
+    //  object = THREE.SceneUtils.createMultiMaterialObject( sphere, materials );
+    //  object.position.set( 500, 0, 0 );
+    //  scene.add( object );
+
+    object = THREE.SceneUtils.createMultiMaterialObject(sphere2, materials);
+    // document.body.appendChild( THREE.UVsDebug( sphere2 ));
     object.position.set(200, 0, 0);
     scene.add(object);
 
-    object = new THREE.Mesh(new THREE.CylinderGeometry(25, 75, 100, 40, 5), material);
-    object.position.set(400, 0, 0);
+    // object = THREE.SceneUtils.createMultiMaterialObject( tube, materials );
+    // object.position.set( 0, 0, 0 );
+    // scene.add( object );
+
+    object = THREE.SceneUtils.createMultiMaterialObject(tube2, materials);
+    object.position.set(100, 0, 0);
     scene.add(object);
 
-    //
 
-    var points = [];
+    // object = THREE.SceneUtils.createMultiMaterialObject( new THREE.PlaneGeometry( 400, 400, 4, 4 ), materials );
+    // object.position.set( -200, 100, 0 );
+    // scene.add( object );
 
-    for (var i = 0; i < 50; i++) {
-
-      points.push(new THREE.Vector3(Math.sin(i * 0.2) * Math.sin(i * 0.1) * 15 + 50, 0, ( i - 5 ) * 2));
-
-    }
-
-    object = new THREE.Mesh(new THREE.LatheGeometry(points, 20), material);
-    object.position.set(-400, 0, -200);
-    scene.add(object);
-
-    object = new THREE.Mesh(new THREE.TorusGeometry(50, 20, 20, 20), material);
-    object.position.set(-200, 0, -200);
-    scene.add(object);
-
-    object = new THREE.Mesh(new THREE.TorusKnotGeometry(50, 10, 50, 20), material);
-    object.position.set(0, 0, -200);
-    scene.add(object);
+    // object = THREE.SceneUtils.createMultiMaterialObject( new THREE.PlaneGeometry2( 400, 400, 4, 4 ), materials );
+    // object.position.set( -200, 100, 0 );
+    // scene.add( object );
 
     object = new THREE.AxisHelper(50);
     object.position.set(200, 0, -200);
     scene.add(object);
 
     object = new THREE.ArrowHelper(new THREE.Vector3(0, 1, 0), new THREE.Vector3(0, 0, 0), 50);
-    object.position.set(400, 0, -200);
+    object.position.set(200, 0, 400);
     scene.add(object);
 
-    //
-    renderer = new THREE.WebGLRenderer({ antialias: true, preserveDrawingBuffer: true });
-    renderer.setSize(WIDTH, HEIGHT);
+    renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
-    var container = document.body;
-    canvas = renderer.domElement;
-    container.appendChild(canvas);
-    canvas.width = WIDTH;
-    canvas.height = HEIGHT;
+    container.appendChild(renderer.domElement);
+
+    stats = new Stats();
+    stats.domElement.style.position = 'absolute';
+    stats.domElement.style.top = '0px';
+    container.appendChild(stats.domElement);
+
+    //
+
+    window.addEventListener('resize', onWindowResize, false);
+
+  }
+
+  function onWindowResize() {
+
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(window.innerWidth, window.innerHeight);
+
+  }
+
+  //
+
+  function animate() {
+
+    requestAnimationFrame(animate);
+
+    render();
+    stats.update();
 
   }
 
   function render() {
 
-    var timer = 138709833.5321;
+    var timer = Date.now() * 0.0001;
 
     camera.position.x = Math.cos(timer) * 800;
     camera.position.z = Math.sin(timer) * 800;
@@ -133,5 +187,3 @@ function geometries_sample(callback) {
     renderer.render(scene, camera);
 
   }
-  return canvas;
-};
