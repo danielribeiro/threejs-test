@@ -6,7 +6,7 @@ function geometries_sample(callback) {
     map.anisotropy = 16;
     init();
     render();
-    callback(canvas);
+    if (callback) callback(canvas);
   });
   map.wrapS = map.wrapT = THREE.RepeatWrapping;
   map.anisotropy = 16;
