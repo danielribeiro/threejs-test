@@ -32,7 +32,7 @@ sceneTest("mirror demo ", function(resembleFn) {
   resembleFn("mirror", mirror_sample());
 });
 
-sceneTest("mirror demo needs at least two iteration counts", function(resembleFn) {
+sceneTest("FAIL EXAMPLE: mirror demo needs at least two iteration counts", function(resembleFn) {
   resembleFn("mirror", mirror_sample(1));
 });
 
@@ -42,7 +42,7 @@ sceneTest("Collada works", function(resembleFn) {
   });
 });
 
-sceneTest("Collada fails with a different morph target", function(resembleFn) {
+sceneTest("FAIL EXAMPLE: Collada fails with a different morph target", function(resembleFn) {
   collada_sample(29, function(canvas) {
     resembleFn("collada", canvas);
   });
