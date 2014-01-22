@@ -8,18 +8,21 @@ URL: https://github.com/Huddle/Resemble.js
 (function(_this){
 	'use strict';
 
-	_this['resemble'] = function( fileData ){
+	_this['resemble'] = function( fileData, delta ){
+		if (delta == null) {
+			delta = 2;
+		}
 
 		var data = {};
 		var images = [];
 		var updateCallbackArray = [];
 
 		var tolerance = { // between 0 and 255
-			red: 16,
-			green: 16,
-			blue: 16,
-			minBrightness: 16,
-			maxBrightness: 240
+			red: 16 * delta,
+			green: 16 * delta,
+			blue: 16 * delta,
+			minBrightness: 16 * delta,
+			maxBrightness: 240 * delta
 		};
 
 		var ignoreAntialiasing = false;
