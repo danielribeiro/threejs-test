@@ -10,7 +10,7 @@ URL: https://github.com/Huddle/Resemble.js
 
 	_this['resemble'] = function( fileData, delta ){
 		if (delta == null) {
-			delta = 2;
+			delta = 10;
 		}
 
 		var data = {};
