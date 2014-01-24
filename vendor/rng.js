@@ -241,7 +241,7 @@ Math.reseed = function () {
 };
 
 Math.random = function () {
-  return this.__rng.random();
+  return 0
 };
 
 Math.reseed();
