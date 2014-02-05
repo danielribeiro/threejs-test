@@ -12,7 +12,6 @@ function displayDiffImage(result) {
 function sceneTest(name, block) {
   asyncTest(name, function() {
     var canvasName = name.replace(/\s+/g, "-");
-    Math.reseed();
     var resembleFn = function(fixtureName, canvas) {
       canvas.setAttribute("id", canvasName)
       canvas.setAttribute("class", "input-canvas")
