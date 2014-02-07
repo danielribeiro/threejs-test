@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>ThreeJS Unit Tests - Using build/Three.js</title>
+    <link rel="stylesheet" href="qunit-1.10.0.css">
+</head>
+<body>
+<style>
+    .input-canvas {
+        display: none;
+    }
+
+    img {
+        display: block;
+    }
+
+    input {
+        width: 300px;
+    }
+
+    #content {
+        position: absolute;
+    }
+
+    #fail {
+        z-index: 500;
+        position: absolute;
+    }
+
+    #original {
+        position: absolute;
+    }
+</style>
+
+<!-- add sources to test below -->
+
+<script src="../vendor/rng.js"></script>
+<script src="../vendor/three.js"></script>
+<script src="../vendor/Mirror.js"></script>
+<script src="../vendor/resemble.js"></script>
+<script src="../vendor/ColladaLoader.js"></script>
+<script src="mirror_sample.js"></script>
+<script src="collada_sample.js"></script>
+<script src="geometries_sample.js"></script>
+
+<!-- add class-based unit tests below -->
+
+<input id="slider" type="range" name="points" min="0" max="10" step="0.01">
+
+<div id="content">
+    <img id="original" src="fixtures/collada.png">
+    <img id="fail" src="fail.png">
+</div>
+
+<script>
+    var min = 0
+    var max = 10
+    var step = 12
+    var reanimateDelta = 3000
+    var lastInteraction = null
+    var v = min
+    var inp = document.getElementById("slider")
+    var failImg = document.getElementById("fail")
+    var paused = false
+
+    var animate = function (func) {
+        var clock = new THREE.Clock()
+        clock.getDelta()
+        var animateWrapper = function () {
+            var delta = clock.getDelta()
+            requestAnimationFrame(animateWrapper)
+            if (lastInteraction && new Date() - lastInteraction > 3000) {
+                paused = false
+            }
+            if (paused) return
+            func(delta)
+        }
+        animateWrapper()
+    }
+    var setOpacity = function (v) {
+        failImg.style.opacity = v / max
+    }
+
+    animate(function (delta) {
+        v += step * delta
+        if (v > max) {
+            v = max
+            step = -step
+        }
+        if (v < min) {
+            v = min
+            step = -step
+        }
+        inp.value = v
+        setOpacity(v)
+    })
+
+    inp.addEventListener('click', function () {
+        paused = true
+        setOpacity(inp.value)
+    })
+    inp.addEventListener('change', function () {
+        setOpacity(inp.value)
+        lastInteraction = new Date()
+    })
+
+
+</script>
+
+
+</body>
+</html>
