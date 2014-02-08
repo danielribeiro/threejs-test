@@ -1,11 +1,11 @@
 module("Mirror Test");
 
 function displayDiffImage(result) {
-  var diffImage = document.createElement("img")
-  diffImage.setAttribute("class", "diff-image")
+  var diffImage = document.createElement("img");
+  diffImage.setAttribute("class", "diff-image");
   diffImage.src = result.getImageDataUrl();
-  var imageDiffs = document.getElementById(QUnit.config.current.id)
-  imageDiffs.appendChild(diffImage)
+  var imageDiffs = document.getElementById(QUnit.config.current.id);
+  imageDiffs.appendChild(diffImage);
 
 }
 
@@ -13,8 +13,8 @@ function sceneTest(name, block) {
   asyncTest(name, function() {
     var canvasName = name.replace(/\s+/g, "-");
     var resembleFn = function(fixtureName, canvas) {
-      canvas.setAttribute("id", canvasName)
-      canvas.setAttribute("class", "input-canvas")
+      canvas.setAttribute("id", canvasName);
+      canvas.setAttribute("class", "input-canvas");
       var result = canvas.toDataURL("image/png");
       resemble("fixtures/" + fixtureName + ".png").compareTo(result).onComplete(function(result) {
         displayDiffImage(result);
