@@ -4,7 +4,7 @@ function displayDiffImage(result) {
   var diffImage = document.createElement("img")
   diffImage.setAttribute("class", "diff-image")
   diffImage.src = result.getImageDataUrl();
-  image_diffs = document.getElementById(QUnit.config.current.id)
+  var image_diffs = document.getElementById(QUnit.config.current.id)
   image_diffs.appendChild(diffImage)
 
 }
