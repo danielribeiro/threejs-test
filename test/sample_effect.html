@@ -7,29 +7,28 @@
 </head>
 <body>
 <style>
-    .input-canvas {
-        display: none;
-    }
-
     img {
         display: block;
     }
 
-    input {
+    .slider {
         width: 300px;
     }
 
-    #content {
+    .content {
         position: absolute;
     }
 
-    #fail {
+    .fail {
         z-index: 500;
         position: absolute;
     }
 
-    #original {
+    .original {
         position: absolute;
+    }
+    #fixture {
+        display: none;
     }
 </style>
 
@@ -44,28 +43,38 @@
 <script src="collada_sample.js"></script>
 <script src="geometries_sample.js"></script>
 
-<!-- add class-based unit tests below -->
 
-Expected <input id="slider" type="range" name="points" min="0" max="10" step="0.01"> Actual
-
-<div id="content">
-    <img id="original" src="fixtures/collada.png">
-    <img id="fail" src="fail.png">
+<div id="fixture">
+    <img class="original" src="fixtures/collada.png">
+    <img class="fail" src="fail.png">
 </div>
 
 <script>
-    function ComparerWidget(original, fail) {
-        this.original = original;
-        this.fail = fail;
+    function ComparerWidget(container, original, fail) {
+        this.wrapper = this.setupDom(container, original, fail)
         this.min = 0;
         this.max = 10;
         this.step = 12;
         this.reanimateDelta = 3000;
         this.lastInteraction = null;
-        this.v = this.min;
-        this.inp = document.getElementById("slider")
-        this.failImg = document.getElementById("fail")
+        this.v = this.min; // TODO: refactor this
+        this.inp = this.wrapper.getElementsByClassName("slider")[0]
+        this.failImg = fail
         this.clock = new THREE.Clock()
+    }
+
+    ComparerWidget.prototype.setupDom = function (container, original, fail) {
+        original.setAttribute("class", "original")
+        fail.setAttribute("class", "fail")
+        var wrapper = document.createElement("div")
+        wrapper.innerHTML = '<div id="wrapper">Expected ' +
+                '<input class="slider" type="range" name="points" min="0" max="10" step="0.01"> Actual' +
+                '<div class="content"></div></div>'
+        container.appendChild(wrapper);
+        var content = wrapper.getElementsByClassName("content")[0]
+        content.appendChild(original)
+        content.appendChild(fail)
+        return wrapper;
     }
 
     ComparerWidget.prototype.animate = function() {
@@ -102,7 +111,7 @@ Expected <input id="slider" type="range" name="points" min="0" max="10" step="0.
         this.failImg.style.opacity = v / this.max
     }
 
-    ComparerWidget.prototype.setupSlider = function() {
+    ComparerWidget.prototype.setup = function() {
         var self = this;
         this.inp.addEventListener('click', function() {
             self.paused = true
@@ -114,7 +123,10 @@ Expected <input id="slider" type="range" name="points" min="0" max="10" step="0.
         })
         this.animate()
     }
-    new ComparerWidget().setupSlider();
+    var fix = document.getElementById("fixture")
+    var original = fix.getElementsByClassName("original")[0]
+    var fail = fix.getElementsByClassName("fail")[0]
+    new ComparerWidget(document.body, original, fail).setup();
 
 
 </script>
