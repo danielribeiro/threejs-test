@@ -1,0 +1,23 @@
+.cwslider {
+    width: 300px;
+}
+
+.cwcontent {
+    position: absolute;
+}
+
+.cwfail {
+    z-index: 500;
+    position: absolute;
+}
+
+.cworiginal {
+    position: absolute;
+}
+
+.cwwrapper {
+    min-height: 640px;
+    min-width: 1120px;
+    height: 640px;
+    width: 1120px;
+}

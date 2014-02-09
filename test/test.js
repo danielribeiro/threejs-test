@@ -7,8 +7,8 @@ function displayResults(inputImage, outputCanvas, diffResult) {
   var imageDiffs = document.getElementById(QUnit.config.current.id);
   imageDiffs.appendChild(diffImage);
   if (diffResult.misMatchPercentage != 0) {
-    imageDiffs.appendChild(outputCanvas);
     outputCanvas.setAttribute("class", "")
+    new ComparerWidget(imageDiffs, inputImage, outputCanvas).start()
   }
 }
 

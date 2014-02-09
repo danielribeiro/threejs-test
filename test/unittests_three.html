@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <title>ThreeJS Unit Tests - Using build/Three.js</title>
   <link rel="stylesheet" href="qunit-1.10.0.css">
+  <link rel="stylesheet" href="comparer_widget.css">
 </head>
 <body>
   <div id="qunit"></div>
@@ -11,23 +12,6 @@
   <style>
     .output-canvas { display: none; }
     img.diff-image { display: block; }
-
-    .slider {
-        width: 300px;
-    }
-
-    .content {
-        position: absolute;
-    }
-
-    .fail {
-        z-index: 500;
-        position: absolute;
-    }
-
-    .original {
-        position: absolute;
-    }
   </style>
 
   <!-- add sources to test below -->
@@ -41,8 +25,8 @@
   <script src="collada_sample.js"></script>
   <script src="geometries_sample.js"></script>
 
-  <!-- add class-based unit tests below -->
   <script src="comparer_widget.js"></script>
+  <!-- add class-based unit tests below -->
   <script src="test.js"></script>
 
 </body>

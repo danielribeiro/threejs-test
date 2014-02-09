@@ -6,20 +6,20 @@ function ComparerWidget(container, original, fail) {
   this.reanimateDelta = 3000;
   this.lastInteraction = null;
   this.value = this.min
-  this.inp = this.wrapper.getElementsByClassName("slider")[0]
+  this.inp = this.wrapper.getElementsByClassName("cwslider")[0]
   this.failImg = fail
   this.clock = new THREE.Clock()
 }
 
 ComparerWidget.prototype.setupDom = function (container, original, fail) {
-  original.setAttribute("class", "original")
-  fail.setAttribute("class", "fail")
+  original.setAttribute("class", "cworiginal")
+  fail.setAttribute("class", "cwfail")
   var wrapper = document.createElement("div")
-  wrapper.innerHTML = '<div id="wrapper">Expected ' +
-    '<input class="slider" type="range" name="points" min="0" max="10" step="0.01"> Actual' +
-    '<div class="content"></div></div>'
+  wrapper.innerHTML = '<div class="cwwrapper">Expected ' +
+    '<input class="cwslider" type="range" name="points" min="0" max="10" step="0.01"> Actual' +
+    '<div class="cwcontent"></div></div>'
   container.appendChild(wrapper);
-  var content = wrapper.getElementsByClassName("content")[0]
+  var content = wrapper.getElementsByClassName("cwcontent")[0]
   content.appendChild(original)
   content.appendChild(fail)
   return wrapper;
@@ -59,7 +59,7 @@ ComparerWidget.prototype.setOpacity = function(v) {
   this.failImg.style.opacity = v / this.max
 }
 
-ComparerWidget.prototype.setup = function() {
+ComparerWidget.prototype.start = function() {
   var self = this;
   this.inp.addEventListener('click', function() {
     self.paused = true

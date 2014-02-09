@@ -4,28 +4,12 @@
     <meta charset="utf-8">
     <title>ThreeJS Unit Tests - Using build/Three.js</title>
     <link rel="stylesheet" href="qunit-1.10.0.css">
+    <link rel="stylesheet" href="comparer_widget.css">
 </head>
 <body>
 <style>
     img {
         display: block;
-    }
-
-    .slider {
-        width: 300px;
-    }
-
-    .content {
-        position: absolute;
-    }
-
-    .fail {
-        z-index: 500;
-        position: absolute;
-    }
-
-    .original {
-        position: absolute;
     }
     #fixture {
         display: none;
@@ -51,7 +35,7 @@
     var fix = document.getElementById("fixture")
     var original = fix.getElementsByClassName("original")[0]
     var fail = fix.getElementsByClassName("fail")[0]
-    new ComparerWidget(document.body, original, fail).setup();
+    new ComparerWidget(document.body, original, fail).start();
 
 
 </script>
