@@ -27886,10 +27886,10 @@ THREE.FontUtils.generateShapes = function( text, parameters ) {
 
 			}
 
-			/* three consecutive vertices in current polygon, <u,v,w> */
+			/* three consecutive vertices in current polygon, <u,value,w> */
 
 			u = v; 	 	if ( nv <= u ) u = 0;     /* previous */
-			v = u + 1;  if ( nv <= v ) v = 0;     /* new v    */
+			v = u + 1;  if ( nv <= v ) v = 0;     /* new value    */
 			w = v + 1;  if ( nv <= w ) w = 0;     /* next     */
 
 			if ( snip( contour, u, v, w, nv, verts ) ) {
@@ -27911,7 +27911,7 @@ THREE.FontUtils.generateShapes = function( text, parameters ) {
 
 				vertIndices.push( [ verts[ u ], verts[ v ], verts[ w ] ] );
 
-				/* remove v from the remaining polygon */
+				/* remove value from the remaining polygon */
 
 				for( s = v, t = v + 1; t < nv; s++, t++ ) {
 
@@ -30169,7 +30169,7 @@ THREE.SplineCurve3 = THREE.Curve.create(
 
 
 // THREE.SplineCurve3.prototype.getTangent = function(t) {
-// 		var v = new THREE.Vector3();
+// 		var value = new THREE.Vector3();
 // 		var c = [];
 // 		var points = this.points, point, intPoint, weight;
 // 		point = ( points.length - 1 ) * t;
@@ -30188,11 +30188,11 @@ THREE.SplineCurve3 = THREE.Curve.create(
 // 			pt3 = points[ c[3] ];
 
 // 	// t = weight;
-// 	v.x = THREE.Curve.Utils.tangentSpline( t, pt0.x, pt1.x, pt2.x, pt3.x );
-// 	v.y = THREE.Curve.Utils.tangentSpline( t, pt0.y, pt1.y, pt2.y, pt3.y );
-// 	v.z = THREE.Curve.Utils.tangentSpline( t, pt0.z, pt1.z, pt2.z, pt3.z );
+// 	value.x = THREE.Curve.Utils.tangentSpline( t, pt0.x, pt1.x, pt2.x, pt3.x );
+// 	value.y = THREE.Curve.Utils.tangentSpline( t, pt0.y, pt1.y, pt2.y, pt3.y );
+// 	value.z = THREE.Curve.Utils.tangentSpline( t, pt0.z, pt1.z, pt2.z, pt3.z );
 
-// 	return v;
+// 	return value;
 
 // }
 /**************************************************************
@@ -32373,7 +32373,7 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 
 		} else {
 
-			// v( vert.x, vert.y + extrudePts[ 0 ].y, extrudePts[ 0 ].x );
+			// value( vert.x, vert.y + extrudePts[ 0 ].y, extrudePts[ 0 ].x );
 
 			normal.copy( splineTube.normals[0] ).multiplyScalar(vert.x);
 			binormal.copy( splineTube.binormals[0] ).multiplyScalar(vert.y);
@@ -32403,7 +32403,7 @@ THREE.ExtrudeGeometry.prototype.addShape = function ( shape, options ) {
 
 			} else {
 
-				// v( vert.x, vert.y + extrudePts[ s - 1 ].y, extrudePts[ s - 1 ].x );
+				// value( vert.x, vert.y + extrudePts[ s - 1 ].y, extrudePts[ s - 1 ].x );
 
 				normal.copy( splineTube.normals[s] ).multiplyScalar( vert.x );
 				binormal.copy( splineTube.binormals[s] ).multiplyScalar( vert.y );
