@@ -57,15 +57,17 @@ Expected <input id="slider" type="range" name="points" min="0" max="10" step="0.
     function ComparerWidget(original, fail) {
         this.original = original;
         this.fail = fail;
+        this.min = 0;
+        this.max = 10
+        this.step = 12
+        this.reanimateDelta = 3000
+        this.lastInteraction = null
     }
 
     ComparerWidget.prototype.setupSlider = function () {
-        var min = 0
-        var max = 10
-        var step = 12
-        var reanimateDelta = 3000
-        var lastInteraction = null
-        var v = min
+        var self = this;
+        var lastInteraction = self.lastInteraction
+        var v = this.min
         var inp = document.getElementById("slider")
         var failImg = document.getElementById("fail")
         var paused = false
@@ -76,7 +78,7 @@ Expected <input id="slider" type="range" name="points" min="0" max="10" step="0.
             var animateWrapper = function () {
                 var delta = clock.getDelta()
                 requestAnimationFrame(animateWrapper)
-                if (lastInteraction && new Date() - lastInteraction > 3000) {
+                if (lastInteraction && new Date() - lastInteraction > self.reanimateDelta) {
                     paused = false
                 }
                 if (paused) return
@@ -85,18 +87,18 @@ Expected <input id="slider" type="range" name="points" min="0" max="10" step="0.
             animateWrapper()
         }
         var setOpacity = function (v) {
-            failImg.style.opacity = v / max
+            failImg.style.opacity = v / self.max
         }
 
         animate(function (delta) {
-            v += step * delta
-            if (v > max) {
-                v = max
-                step = -step
+            v += self.step * delta
+            if (v > self.max) {
+                v = self.max
+                self.step = -self.step
             }
-            if (v < min) {
-                v = min
-                step = -step
+            if (v < self.min) {
+                v = self.min
+                self.step = -self.step
             }
             inp.value = v
             setOpacity(v)
