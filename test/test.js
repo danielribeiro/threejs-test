@@ -1,9 +1,9 @@
 module("Mirror Test");
 
-function displayDiffImage(result) {
+function displayResults(inputImage, diffResult) {
   var diffImage = document.createElement("img");
   diffImage.setAttribute("class", "diff-image");
-  diffImage.src = result.getImageDataUrl();
+  diffImage.src = diffResult.getImageDataUrl();
   var imageDiffs = document.getElementById(QUnit.config.current.id);
   imageDiffs.appendChild(diffImage);
 }
@@ -24,11 +24,11 @@ function sceneTest(name, block) {
       canvas.setAttribute("class", "input-canvas");
       var result = canvas.toDataURL("image/png");
       var url = "fixtures/" + fixtureName + ".png"
-      withImage(url, function (img) {
-        resemble(url).compareTo(result).onComplete(function (result) {
-          displayDiffImage(result);
-          equal(true, result.isSameDimensions, "Images have the same dimensions");
-          equal(0, result.misMatchPercentage, "Images are the same");
+      withImage(url, function (inputImage) {
+        resemble(url).compareTo(result).onComplete(function (diffResult) {
+          displayResults(inputImage, diffResult);
+          equal(true, diffResult.isSameDimensions, "Images have the same dimensions");
+          equal(0, diffResult.misMatchPercentage, "Images are the same");
           start();
         });
       });
