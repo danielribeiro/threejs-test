@@ -1,11 +1,15 @@
 module("Mirror Test");
 
-function displayResults(inputImage, outputImage, diffResult) {
+function displayResults(inputImage, outputCanvas, diffResult) {
   var diffImage = document.createElement("img");
   diffImage.setAttribute("class", "diff-image");
   diffImage.src = diffResult.getImageDataUrl();
   var imageDiffs = document.getElementById(QUnit.config.current.id);
   imageDiffs.appendChild(diffImage);
+  if (diffResult.misMatchPercentage != 0) {
+    imageDiffs.appendChild(outputCanvas);
+    outputCanvas.setAttribute("class", "")
+  }
 }
 
 function withImage(url, callback) {
