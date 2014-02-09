@@ -15,9 +15,13 @@ ComparerWidget.prototype.setupDom = function (container, original, fail) {
   original.setAttribute("class", "cworiginal");
   fail.setAttribute("class", "cwfail");
   var wrapper = document.createElement("div");
-  wrapper.innerHTML = '<div class="cwwrapper">Expected ' +
+  wrapper.innerHTML = '<div><h2>Dynamic Diff:</h2></div><div class="cwwrapper">' +
+    '<div class="cwcontent"></div>' +
+    '</div>' +
+    '<div class="cwcontrols">' +
+    'Expected ' +
     '<input class="cwslider" type="range" name="points" min="0" max="10" step="0.001"> Actual' +
-    '<div class="cwcontent"></div></div>'
+    '</div>'
   container.appendChild(wrapper);
   content = wrapper.getElementsByClassName("cwcontent")[0];
   content.appendChild(original);
