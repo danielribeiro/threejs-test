@@ -58,60 +58,61 @@ Expected <input id="slider" type="range" name="points" min="0" max="10" step="0.
         this.original = original;
         this.fail = fail;
         this.min = 0;
-        this.max = 10
-        this.step = 12
-        this.reanimateDelta = 3000
-        this.lastInteraction = null
+        this.max = 10;
+        this.step = 12;
+        this.reanimateDelta = 3000;
+        this.lastInteraction = null;
+        this.v = this.min;
+        this.inp = document.getElementById("slider")
+        this.failImg = document.getElementById("fail")
+        this.clock = new THREE.Clock()
     }
 
-    ComparerWidget.prototype.setupSlider = function () {
+    ComparerWidget.prototype.animate = function() {
+        this.clock.getDelta()
+        this.innerAnimate()
+    };
+
+    ComparerWidget.prototype.innerAnimate = function() {
+        var delta = this.clock.getDelta()
+        requestAnimationFrame(this.innerAnimate.bind(this))
+        if (this.lastInteraction && new Date() - this.lastInteraction > this.reanimateDelta) {
+            this.paused = false
+        }
+        if (this.paused) return
+        this.updateOpacity(delta)
+    }
+
+
+    ComparerWidget.prototype.updateOpacity = function(delta) {
+        this.v += this.step * delta
+        if (this.v > this.max) {
+            this.v = this.max
+            this.step = -this.step
+        }
+        if (this.v < this.min) {
+            this.v = this.min
+            this.step = -this.step
+        }
+        this.inp.value = this.v
+        this.setOpacity(this.v)
+    }
+
+    ComparerWidget.prototype.setOpacity = function(v) {
+        this.failImg.style.opacity = v / this.max
+    }
+
+    ComparerWidget.prototype.setupSlider = function() {
         var self = this;
-        var lastInteraction = self.lastInteraction
-        var v = this.min
-        var inp = document.getElementById("slider")
-        var failImg = document.getElementById("fail")
-        var paused = false
-
-        var animate = function (func) {
-            var clock = new THREE.Clock()
-            clock.getDelta()
-            var animateWrapper = function () {
-                var delta = clock.getDelta()
-                requestAnimationFrame(animateWrapper)
-                if (lastInteraction && new Date() - lastInteraction > self.reanimateDelta) {
-                    paused = false
-                }
-                if (paused) return
-                func(delta)
-            }
-            animateWrapper()
-        }
-        var setOpacity = function (v) {
-            failImg.style.opacity = v / self.max
-        }
-
-        animate(function (delta) {
-            v += self.step * delta
-            if (v > self.max) {
-                v = self.max
-                self.step = -self.step
-            }
-            if (v < self.min) {
-                v = self.min
-                self.step = -self.step
-            }
-            inp.value = v
-            setOpacity(v)
+        this.inp.addEventListener('click', function() {
+            self.paused = true
+            self.setOpacity(self.inp.value)
         })
-
-        inp.addEventListener('click', function () {
-            paused = true
-            setOpacity(inp.value)
+        this.inp.addEventListener('change', function() {
+            self.setOpacity(self.inp.value)
+            self.lastInteraction = new Date()
         })
-        inp.addEventListener('change', function () {
-            setOpacity(inp.value)
-            lastInteraction = new Date()
-        })
+        this.animate()
     }
     new ComparerWidget().setupSlider();
 
