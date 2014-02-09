@@ -25,7 +25,7 @@ function sceneTest(name, block) {
     var canvasName = name.replace(/\s+/g, "-");
     var resembleFn = function (fixtureName, outputCanvas) {
       outputCanvas.setAttribute("id", canvasName);
-      outputCanvas.setAttribute("class", "input-canvas");
+      outputCanvas.setAttribute("class", "output-canvas");
       var result = outputCanvas.toDataURL("image/png");
       var url = "fixtures/" + fixtureName + ".png"
       withImage(url, function (inputImage) {
