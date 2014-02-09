@@ -1,6 +1,6 @@
 module("Mirror Test");
 
-function displayResults(inputImage, diffResult) {
+function displayResults(inputImage, outputImage, diffResult) {
   var diffImage = document.createElement("img");
   diffImage.setAttribute("class", "diff-image");
   diffImage.src = diffResult.getImageDataUrl();
@@ -19,14 +19,14 @@ function withImage(url, callback) {
 function sceneTest(name, block) {
   asyncTest(name, function () {
     var canvasName = name.replace(/\s+/g, "-");
-    var resembleFn = function (fixtureName, canvas) {
-      canvas.setAttribute("id", canvasName);
-      canvas.setAttribute("class", "input-canvas");
-      var result = canvas.toDataURL("image/png");
+    var resembleFn = function (fixtureName, outputCanvas) {
+      outputCanvas.setAttribute("id", canvasName);
+      outputCanvas.setAttribute("class", "input-canvas");
+      var result = outputCanvas.toDataURL("image/png");
       var url = "fixtures/" + fixtureName + ".png"
       withImage(url, function (inputImage) {
         resemble(url).compareTo(result).onComplete(function (diffResult) {
-          displayResults(inputImage, diffResult);
+          displayResults(inputImage, outputCanvas, diffResult);
           equal(true, diffResult.isSameDimensions, "Images have the same dimensions");
           equal(0, diffResult.misMatchPercentage, "Images are the same");
           start();
