@@ -1,73 +1,72 @@
 function ComparerWidget(container, original, fail) {
-  this.wrapper = this.setupDom(container, original, fail)
+  this.wrapper = this.setupDom(container, original, fail);
   this.min = 0;
   this.max = 10;
-  this.step = 12;
+  this.step = 10;
   this.reanimateDelta = 3000;
   this.lastInteraction = null;
-  this.value = this.min
-  this.inp = this.wrapper.getElementsByClassName("cwslider")[0]
-  this.failImg = fail
-  this.clock = new THREE.Clock()
+  this.value = this.min;
+  this.inp = this.wrapper.getElementsByClassName("cwslider")[0];
+  this.failImg = fail;
+  this.clock = new THREE.Clock();
 }
 
 ComparerWidget.prototype.setupDom = function (container, original, fail) {
-  original.setAttribute("class", "cworiginal")
-  fail.setAttribute("class", "cwfail")
-  var wrapper = document.createElement("div")
+  original.setAttribute("class", "cworiginal");
+  fail.setAttribute("class", "cwfail");
+  var wrapper = document.createElement("div");
   wrapper.innerHTML = '<div class="cwwrapper">Expected ' +
-    '<input class="cwslider" type="range" name="points" min="0" max="10" step="0.01"> Actual' +
+    '<input class="cwslider" type="range" name="points" min="0" max="10" step="0.001"> Actual' +
     '<div class="cwcontent"></div></div>'
   container.appendChild(wrapper);
-  var content = wrapper.getElementsByClassName("cwcontent")[0]
-  content.appendChild(original)
-  content.appendChild(fail)
+  content = wrapper.getElementsByClassName("cwcontent")[0];
+  content.appendChild(original);
+  content.appendChild(fail);
   return wrapper;
-}
+};
 
 ComparerWidget.prototype.animate = function() {
-  this.clock.getDelta()
-  this.innerAnimate()
+  this.clock.getDelta();
+  this.innerAnimate();
 };
 
 ComparerWidget.prototype.innerAnimate = function() {
-  var delta = this.clock.getDelta()
-  requestAnimationFrame(this.innerAnimate.bind(this))
+  var delta = this.clock.getDelta();
+  requestAnimationFrame(this.innerAnimate.bind(this));
   if (this.lastInteraction && new Date() - this.lastInteraction > this.reanimateDelta) {
-    this.paused = false
+    this.paused = false;
   }
-  if (this.paused) return
-  this.updateOpacity(delta)
+  if (this.paused) return;
+  this.updateOpacity(delta);
 }
-
 
 ComparerWidget.prototype.updateOpacity = function(delta) {
-  this.value += this.step * delta
+  this.value += this.step * delta;
   if (this.value > this.max) {
-    this.value = this.max
-    this.step = -this.step
+    this.value = this.max;
+    this.step = -this.step;
   }
   if (this.value < this.min) {
-    this.value = this.min
-    this.step = -this.step
+    this.value = this.min;
+    this.step = -this.step;
   }
-  this.inp.value = this.value
-  this.setOpacity(this.value)
-}
+  this.inp.value = this.value;
+  this.setOpacity(this.value);
+};
 
 ComparerWidget.prototype.setOpacity = function(v) {
-  this.failImg.style.opacity = v / this.max
-}
+  this.failImg.style.opacity = v / this.max;
+};
 
 ComparerWidget.prototype.start = function() {
   var self = this;
-  this.inp.addEventListener('click', function() {
-    self.paused = true
-    self.setOpacity(self.inp.value)
-  })
-  this.inp.addEventListener('change', function() {
-    self.setOpacity(self.inp.value)
-    self.lastInteraction = new Date()
-  })
-  this.animate()
-}
+  this.inp.addEventListener("click", function() {
+    self.paused = true;
+    self.setOpacity(self.inp.value);
+  });
+  this.inp.addEventListener("change", function() {
+    self.setOpacity(self.inp.value);
+    self.lastInteraction = new Date();
+  });
+  this.animate();
+};
