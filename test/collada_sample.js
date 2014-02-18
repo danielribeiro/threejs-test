@@ -1,4 +1,4 @@
-// ORIGINAL: https://github.com/mrdoob/three.js/blob/master/examples/webgl_loader_collada.html
+// ORIGINAL: https://github.com/mrdoob/three.js/blob/r65/examples/webgl_loader_collada.html
   if (!Detector.webgl) Detector.addGetWebGLMessage();
 
   var container, stats;

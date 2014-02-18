@@ -1,4 +1,4 @@
-// ORIGINAL: https://github.com/mrdoob/three.js/blob/master/examples/webgl_mirror.html
+// ORIGINAL: https://github.com/mrdoob/three.js/blob/r65/examples/webgl_mirror.html
   // scene size
   var WIDTH = window.innerWidth;
   var HEIGHT = window.innerHeight;

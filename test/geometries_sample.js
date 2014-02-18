@@ -1,4 +1,4 @@
-// ORIGINAL: https://github.com/mrdoob/three.js/blob/master/examples/webgl_geometries2.html
+// ORIGINAL: https://github.com/mrdoob/three.js/blob/r65/examples/webgl_geometries2.html
   /* Testing the new Parametric Surfaces Geometries*/
   if (!Detector.webgl) Detector.addGetWebGLMessage();
 
